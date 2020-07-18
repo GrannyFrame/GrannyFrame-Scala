@@ -66,31 +66,6 @@ class GrannyFrameBot(val token: String, store: DBStore)(override implicit val ex
     }.getOrElse {
       reply("This bot can only receive Pictures").void
     }
-
-//    if (msg.photo.isEmpty) {
-//      reply("This bot can only recieve Pictures")
-//    }
-//    using(_.photo) { photo =>
-//      request(GetFile(photo.last.fileId)).andThen({
-//        case Success(file) =>
-//          file.filePath match {
-//
-//            case Some(filePath) =>
-//              val url = s"https://api.telegram.org/file/bot${token}/${filePath}"
-//
-//              for {
-//                res <- Future {
-//                  scalaj.http.Http(url).asBytes
-//                }
-//                if res.isSuccess
-//                bytes = res.body
-//                _ <- reply(s"File with ${bytes.size} bytes received.").void
-//              } yield ()
-//            case None =>
-//              reply("No file_path was returned").void
-//          }
-//      }).void
-
   }
 
   // Int(n) extractor
