@@ -32,7 +32,7 @@ class GrannyFrameBot(val token: String) extends TelegramBot
 
   onMessage { implicit msg =>
     if (msg.photo.isEmpty) {
-      reply("This telegram.bot can only recieve Pictures")
+      reply("This bot can only recieve Pictures")
     }
     using(_.photo) { photo =>
       request(GetFile(photo.last.fileId)).andThen({

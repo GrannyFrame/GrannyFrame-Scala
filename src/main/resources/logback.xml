@@ -5,24 +5,11 @@
     </encoder>
   </appender>
 
-  <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-    <file>./log/stoerage.log</file>
-    <encoder>
-      <pattern>%date{ISO8601} [%-5level] %logger{15} - %msg%n</pattern>
-    </encoder>
-  </appender>
-
    <logger name="com.typesafe" level="INFO"></logger>
-   <logger name="de.thm.mni.lisci.stoerage.backend.services.AuthenticationService" level="INFO"></logger>
+   <logger name="grannyframe" level="DEBUG"></logger>
    <logger name="akka.http" level="INFO"></logger>
 
-   <logger name="AccessLog">
-    <appender-ref ref="accesslog" />
-   </logger>
-  <!-- <logger name="akka" level="INFO"></logger> -->
-
-   <root level="DEBUG">
-       <appender-ref ref="FILE"/>
+   <root level="INFO">
        <appender-ref ref="STDOUT"/>
    </root>
 </configuration>
