@@ -1,4 +1,4 @@
-package telegram
+package telegram.bot
 
 import cats.instances.future._
 import cats.syntax.functor._
@@ -10,6 +10,7 @@ import com.bot4s.telegram.methods.GetFile
 import com.bot4s.telegram.models.Message
 import com.softwaremill.sttp.okhttp.OkHttpFutureBackend
 import slogging.{LogLevel, LoggerConfig, PrintLoggerFactory}
+import sttp.client.akkahttp.AkkaHttpBackend
 
 import scala.util.{Success, Try}
 import scala.concurrent.Future
@@ -31,7 +32,7 @@ class GrannyFrameBot(val token: String) extends TelegramBot
 
   onMessage { implicit msg =>
     if (msg.photo.isEmpty) {
-      reply("This bot can only recieve Pictures")
+      reply("This telegram.bot can only recieve Pictures")
     }
     using(_.photo) { photo =>
       request(GetFile(photo.last.fileId)).andThen({
