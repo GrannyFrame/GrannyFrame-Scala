@@ -11,10 +11,9 @@ import telegram.bot.GrannyFrameBot
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
-trait TelegramModule extends CoreModule with LazyLogging {
+trait TelegramModule extends PersistenceModule with LazyLogging {
 
-  lazy val actorSystem = ActorSystem("StoerageBackend", ConfigFactory.load("akka.conf"))
-  lazy val bot = new GrannyFrameBot(config.bot.token)
+  lazy val bot = new GrannyFrameBot(config.bot.token, store)
 
   abstract override def bootstrap(): Unit = {
     super.bootstrap()

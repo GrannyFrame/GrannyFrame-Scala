@@ -35,6 +35,7 @@
     <orderEntry type="library" name="sbt: com.typesafe.akka:akka-http_2.12:10.1.12:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe.akka:akka-parsing_2.12:10.1.12:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe.akka:akka-protobuf_2.12:2.5.23:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.typesafe.akka:akka-slf4j_2.12:2.5.23:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe.akka:akka-stream_2.12:2.5.23:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe.scala-logging:scala-logging_2.12:3.9.2:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe:config:1.4.0:jar" level="project" />

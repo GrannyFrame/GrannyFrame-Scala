@@ -5,6 +5,8 @@ import grannyframe.CoreModule
 
 trait PersistenceModule extends CoreModule with LazyLogging {
 
+  lazy val store = new DBStore()
+
   abstract override def bootstrap(): Unit = {
     super.bootstrap()
     logger.debug("Persistence Module Started")
