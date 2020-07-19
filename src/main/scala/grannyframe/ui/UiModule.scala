@@ -1,9 +1,9 @@
 package grannyframe.ui
 
 import com.typesafe.scalalogging.LazyLogging
-import grannyframe.CoreModule
+import grannyframe.persistence.PersistenceModule
 
-trait UiModule extends CoreModule with LazyLogging {
+trait UiModule extends PersistenceModule with LazyLogging {
   abstract override def bootstrap(): Unit = {
     super.bootstrap()
     logger.debug("UI Module Started")
