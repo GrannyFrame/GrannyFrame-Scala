@@ -1,11 +1,12 @@
 name := "GrannyFrameScala"
-
 version := "0.1"
-
 scalaVersion := "2.12.11"
 
-lazy val akkaVersion = "2.5.23"
+fork in run := true
+connectInput in run := true
+cancelable in Global := true
 
+lazy val akkaVersion = "2.5.23"
 lazy val osName = System.getProperty("os.name") match {
   case n if n.startsWith("Linux")   => "linux"
   case n if n.startsWith("Mac")     => "mac"

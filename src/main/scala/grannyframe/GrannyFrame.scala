@@ -10,8 +10,6 @@ object GrannyFrame extends LazyLogging {
     val module = new CoreModule with PersistenceModule with TelegramModule with UiModule {}
 
     module.bootstrap()
-    logger.info("Press [ENTER] to shutdown the bot, it may take a few seconds...")
-    scala.io.StdIn.readLine()
 
     module.shutdown()
 
