@@ -30,6 +30,7 @@ libraryDependencies ++= List(
   "com.typesafe.akka" %% "akka-slf4j"               % akkaVersion,
 
   "com.github.pureconfig" %% "pureconfig" % "0.12.+",
+  "com.github.pathikrit" %% "better-files" % "3.8.+",
 
   "org.scalafx" %% "scalafx" % "14-R19",
 )
