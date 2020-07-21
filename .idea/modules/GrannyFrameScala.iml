@@ -18,6 +18,7 @@
     <orderEntry type="library" name="sbt: com.bot4s:telegram-akka_2.12:4.4.0-RC2:jar" level="project" />
     <orderEntry type="library" name="sbt: com.bot4s:telegram-core_2.12:4.4.0-RC2:jar" level="project" />
     <orderEntry type="library" name="sbt: com.chuusai:shapeless_2.12:2.3.3:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.github.pathikrit:better-files_2.12:3.8.0:jar" level="project" />
     <orderEntry type="library" name="sbt: com.github.pureconfig:pureconfig-core_2.12:0.12.3:jar" level="project" />
     <orderEntry type="library" name="sbt: com.github.pureconfig:pureconfig-generic-base_2.12:0.12.3:jar" level="project" />
     <orderEntry type="library" name="sbt: com.github.pureconfig:pureconfig-generic_2.12:0.12.3:jar" level="project" />

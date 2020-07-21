@@ -1,6 +1,7 @@
 package telegram.bot
 
 import java.io.ObjectInputStream.GetField
+import java.time.Instant
 
 import akka.http.scaladsl.model.MediaTypes
 import akka.http.scaladsl.server.ContentNegotiator.Alternative.MediaType
@@ -53,7 +54,7 @@ class GrannyFrameBot(val token: String, store: DBStore)(override implicit val ex
               .map(_.body)
               .flatMap { bytes =>
                 logger.info("received {} bytes for fileId: {}", bytes.length, latestPhoto.fileId)
-                store.saveImage(ImageEntity(msg.from.get.firstName, msg.caption, bytes, MediaTypes.`image/jpeg`.value))
+                store.saveImage(ImageEntity(msg.from.get.firstName, msg.caption, bytes, MediaTypes.`image/jpeg`.value, Instant.ofEpochMilli(msg.date)))
               }
               .flatMap(_ => reply("Bild erhalten.").void)
               .recoverWith { case _ => reply("Bildverarbeitung fehlgeschlagen").void }
