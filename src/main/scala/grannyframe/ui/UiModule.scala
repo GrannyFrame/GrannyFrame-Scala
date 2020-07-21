@@ -2,7 +2,7 @@ package grannyframe.ui
 
 import com.typesafe.scalalogging.LazyLogging
 import grannyframe.persistence.PersistenceModule
-import grannyframe.ui.scalafx.MainUI
+import grannyframe.ui.jfx.MainUI
 import javafx.application.Application
 
 trait UiModule extends PersistenceModule with LazyLogging {
