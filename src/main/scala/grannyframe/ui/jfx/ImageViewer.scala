@@ -59,6 +59,7 @@ class ImageViewer extends StackPane {
     val date = dateFormatter.format(image.createdAt)
     val time = timeFormatter.format(image.createdAt)
 
+    //TODO: Support Emoji! https://github.com/Madeorsk/EmojisFX
     caption.setText(s"${image.sender} am $date um $time ${image.caption.map(s => s":\n$s").getOrElse("")}")
 
     val img = new Image(new ByteArrayInputStream(image.bytes))
