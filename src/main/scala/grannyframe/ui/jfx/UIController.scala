@@ -2,7 +2,7 @@ package grannyframe.ui.jfx
 
 import grannyframe.persistence.ImageEntity
 import grannyframe.ui.jfx.views.{ImageViewer, LoadingViewer}
-import javafx.scene.Scene
+import javafx.scene.{Node, Scene}
 import javafx.scene.layout.{AnchorPane, StackPane}
 import javafx.stage.Stage
 
@@ -18,25 +18,26 @@ class UIController(val stage: Stage) {
 
   def showSplash(msg: String): Unit ={
     val splash = new LoadingViewer(msg)
-    AnchorPane.setTopAnchor(splash, 0f)
-    AnchorPane.setRightAnchor(splash, 0f)
-    AnchorPane.setBottomAnchor(splash, 0f)
-    AnchorPane.setLeftAnchor(splash, 0f)
+    setAnchorConst(splash)
     frame.getChildren.clear()
     frame.getChildren.add(splash)
   }
 
   def initImage(): Unit = {
     frame.getChildren.clear()
-    AnchorPane.setTopAnchor(viewer, 0f)
-    AnchorPane.setRightAnchor(viewer, 0f)
-    AnchorPane.setBottomAnchor(viewer, 0f)
-    AnchorPane.setLeftAnchor(viewer, 0f)
+    setAnchorConst(viewer)
     frame.getChildren.add(viewer)
   }
 
   def showImage(imageEntity: ImageEntity): Unit = {
     if(!frame.getChildren.get(0).isInstanceOf[ImageViewer]) initImage()
     viewer.displayImage(imageEntity)
+  }
+
+  private def setAnchorConst(node: Node): Unit ={
+    AnchorPane.setTopAnchor(node, 0f)
+    AnchorPane.setRightAnchor(node, 0f)
+    AnchorPane.setBottomAnchor(node, 0f)
+    AnchorPane.setLeftAnchor(node, 0f)
   }
 }
