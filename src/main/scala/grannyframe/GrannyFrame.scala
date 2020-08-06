@@ -11,12 +11,6 @@ import javafx.application.{Application, Platform}
 import javafx.scene.Scene
 import javafx.stage.Stage
 
-object GrannyFrame {
-  def main(args: Array[String]): Unit = {
-    Application.launch(classOf[GrannyFrame])
-  }
-}
-
 class GrannyFrame extends Application with LazyLogging {
   override def start(stage: Stage): Unit = {
     logger.info("Starting FrannyFrame...")
@@ -26,8 +20,8 @@ class GrannyFrame extends Application with LazyLogging {
     modules.bootstrap()
 
     stage.setOnCloseRequest(evt => {
-      modules.shutdown()
       Platform.exit()
+      modules.shutdown()
       logger.info("Granny Frame Stopped")
       System.exit(0)
     })
