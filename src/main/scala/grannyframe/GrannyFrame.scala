@@ -15,34 +15,25 @@ class GrannyFrame extends Application with LazyLogging {
   override def start(stage: Stage): Unit = {
     logger.info("Starting FrannyFrame...")
     logger.info("Starting Modules")
-    implicit val uiCtrl: UIController = new UIController();
+
+    val uiCtrl = new UIController(stage)
+
     val modules = new CoreModule with PersistenceModule with TelegramModule {}
     modules.bootstrap()
 
+    modules.store.setUI(uiCtrl)
+
     stage.setOnCloseRequest(evt => {
+      uiCtrl.showSplash("Bilderrahmen wird beendet!\nBitte habe noch etwas geduld!")
       Platform.exit()
       modules.shutdown()
       logger.info("Granny Frame Stopped")
       System.exit(0)
     })
 
-    stage.setTitle("GrannyFrame")
-    stage.setFullScreen(true)
+    uiCtrl.showSplash("Der Bilderrahmen startet gerade...\nBitte warte noch ein wenig...");
 
-    //Test
-    val imageWeb = "/home/felix/Desktop/20190801_184527_HDR.jpg"
-    val testimage = ImageEntity("Clara",
-      Option[String]("München, here we are! \uD83D\uDE00"),
-      Files.newInputStream(Paths.get(imageWeb)).readAllBytes()
-    )
-    //EndTest
 
-    val viewer = new ImageViewer();
-
-    viewer.displayImage(testimage)//Test
-
-    stage.setScene(new Scene(viewer, 800, 600))
-
-    stage.show()
+    logger.info("Grannyframe started!")
   }
 }
