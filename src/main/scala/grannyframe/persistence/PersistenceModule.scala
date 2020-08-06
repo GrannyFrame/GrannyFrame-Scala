@@ -2,10 +2,11 @@ package grannyframe.persistence
 
 import com.typesafe.scalalogging.LazyLogging
 import grannyframe.CoreModule
+import grannyframe.ui.jfx.UIController
 
 trait PersistenceModule extends CoreModule with LazyLogging {
 
-  lazy val store = new DBStore()
+  lazy val store = new DBStore(new UIController())
 
   abstract override def bootstrap(): Unit = {
     super.bootstrap()

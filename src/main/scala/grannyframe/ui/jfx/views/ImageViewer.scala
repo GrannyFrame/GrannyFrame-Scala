@@ -1,21 +1,19 @@
-package grannyframe.ui.jfx
+package grannyframe.ui.jfx.views
 
-import java.io.{ByteArrayInputStream, File, FileReader}
-import java.nio.file.{Files, Path, Paths}
+import java.io.ByteArrayInputStream
 import java.time.ZoneId
 import java.time.format.{DateTimeFormatter, FormatStyle}
 import java.util.Locale
 
+import better.files.Resource
 import grannyframe.persistence.ImageEntity
 import javafx.geometry.{Insets, Pos}
 import javafx.scene.image.{Image, ImageView}
-import javafx.scene.layout.{AnchorPane, Background, BackgroundFill, CornerRadii, StackPane, VBox}
+import javafx.scene.layout._
 import javafx.scene.paint.Color
 import javafx.scene.text.{Font, Text}
 
-import better.files.Resource
-
-import collection.JavaConverters._
+import scala.collection.JavaConverters._
 
 
 class ImageViewer extends StackPane {
