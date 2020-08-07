@@ -9,7 +9,7 @@ import org.mongodb.scala.model.Sorts._
 import scala.concurrent.{ExecutionContext, Future}
 
 class DBStore(val dbConStr: String, val db: String)(implicit val ex: ExecutionContext) extends LazyLogging {
-  var ui: UIController = null
+  var ui: UIController = _
 
   val mongoClient: MongoClient = MongoClient(dbConStr)
   val database: MongoDatabase = mongoClient.getDatabase(db)
@@ -32,6 +32,6 @@ class DBStore(val dbConStr: String, val db: String)(implicit val ex: ExecutionCo
   }
 
   def setUI(ui: UIController): Unit = {
-    this.ui = ui;
+    this.ui = ui
   }
 }
