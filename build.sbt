@@ -33,6 +33,8 @@ libraryDependencies ++= List(
   "com.github.pathikrit" %% "better-files" % "3.8.+",
 
   "org.scalafx" %% "scalafx" % "14-R19",
+
+  "org.mongodb.scala" %% "mongo-scala-driver" % "2.9.0",
 )
 
 libraryDependencies ++= javaFXModules.map( m =>
