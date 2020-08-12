@@ -34,6 +34,10 @@ class UIController(val stage: Stage) {
     viewer.displayImage(imageEntity)
   }
 
+  def showSlideshow(images: Seq[ImageEntity]): Unit = {
+
+  }
+
   private def setAnchorConst(node: Node): Unit ={
     AnchorPane.setTopAnchor(node, 0f)
     AnchorPane.setRightAnchor(node, 0f)

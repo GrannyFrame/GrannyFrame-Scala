@@ -31,7 +31,8 @@ class GrannyFrame extends Application with LazyLogging {
       System.exit(0)
     })
 
-    uiCtrl.showSplash("Der Bilderrahmen startet gerade...\nBitte warte noch ein wenig...");
+    uiCtrl.showSplash("Der Bilderrahmen startet gerade...\nBitte warte noch ein wenig...")
+
 
 
     logger.info("Grannyframe started!")
