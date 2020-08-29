@@ -1,6 +1,7 @@
 package grannyframe.persistence
 
 import com.typesafe.scalalogging.LazyLogging
+import grannyframe.Config
 import grannyframe.ui.jfx.UIController
 import javafx.application.Platform
 import org.mongodb.scala.{Document, FindObservable, MongoClient, MongoCollection, MongoDatabase}
@@ -13,33 +14,35 @@ import org.bson.codecs.configuration.CodecRegistry
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class DBStore(val dbConStr: String, val db: String)(implicit val ex: ExecutionContext) extends LazyLogging {
+class DBStore(val config: Config)(implicit val ex: ExecutionContext) extends LazyLogging {
   var ui: UIController = _
 
   val codecRegistry: CodecRegistry = fromRegistries(fromProviders(classOf[ImageEntity]), DEFAULT_CODEC_REGISTRY )
 
-  val mongoClient: MongoClient = MongoClient(dbConStr)
-  val database: MongoDatabase = mongoClient.getDatabase(db).withCodecRegistry(codecRegistry)
+  val mongoClient: MongoClient = MongoClient(config.database.connectionString)
+  val database: MongoDatabase = mongoClient.getDatabase(config.database.database).withCodecRegistry(codecRegistry)
   val collection: MongoCollection[ImageEntity] = database.getCollection("Pictures")
 
   def saveImage(image: ImageEntity): Future[Unit] = {
     logger.info("saving image: {}", image)
 
     // Save to db
-    collection.insertOne(image).subscribe(new Observer[Completed] {
-      override def onNext(result: Completed): Unit = println(s"onNext: $result")
-      override def onError(e: Throwable): Unit = println(s"onError: $e")
-      override def onComplete(): Unit = println("onComplete")
-    })
-
-    //Notify UI
-    Platform.runLater(() => ui.showImage(image))
-
-    Future.successful(())
+    for {
+      _ <- collection.insertOne(image).toFuture()
+      imgs <- getImages(config.frontend.imageCount)
+    } yield {
+      Platform.runLater { () =>
+        ui.showNewImage(imgs)
+      }
+    }
   }
 
-  def getImages(n: Int): FindObservable[ImageEntity] = {
-    collection.find[ImageEntity]().limit(n)
+  def getImages(n: Int): Future[List[ImageEntity]] = {
+    collection.find[ImageEntity]()
+      .sort(descending("createdAt"))
+      .limit(n)
+      .toFuture()
+      .map(_.toList)
   }
 
   def setUI(ui: UIController): Unit = {

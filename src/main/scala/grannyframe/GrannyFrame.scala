@@ -16,15 +16,17 @@ class GrannyFrame extends Application with LazyLogging {
     logger.info("Starting FrannyFrame...")
     logger.info("Starting Modules")
 
-    val uiCtrl = new UIController(stage)
-
     val modules = new CoreModule with PersistenceModule with TelegramModule {}
+
+    val uiCtrl = new UIController(stage, modules.actorSystem, modules.config)
+
     modules.bootstrap()
 
     modules.store.setUI(uiCtrl)
 
     stage.setOnCloseRequest(evt => {
-      uiCtrl.showSplash("Bilderrahmen wird beendet!\nBitte habe noch etwas geduld!")
+      Platform.runLater(() => uiCtrl.showSplash("Bilderrahmen wird beendet!\nBitte habe noch etwas geduld!"))
+      Thread.sleep(200)
       Platform.exit()
       modules.shutdown()
       logger.info("Granny Frame Stopped")
@@ -32,8 +34,6 @@ class GrannyFrame extends Application with LazyLogging {
     })
 
     uiCtrl.showSplash("Der Bilderrahmen startet gerade...\nBitte warte noch ein wenig...")
-
-
 
     logger.info("Grannyframe started!")
   }

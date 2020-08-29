@@ -6,4 +6,4 @@ case class Bot(token: String)
 
 case class Database(connectionString: String, database: String)
 
-case class Frontend(imageCount: Int, imageTime: Int)
+case class Frontend(imageCount: Int, imageTime: Int, newImageTime: Int)

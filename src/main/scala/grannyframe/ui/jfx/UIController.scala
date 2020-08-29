@@ -1,12 +1,15 @@
 package grannyframe.ui.jfx
 
+import akka.actor.{ActorSystem, Props}
+import grannyframe.Config
 import grannyframe.persistence.ImageEntity
 import grannyframe.ui.jfx.views.{ImageViewer, LoadingViewer}
+import javafx.application.Platform
 import javafx.scene.{Node, Scene}
-import javafx.scene.layout.{AnchorPane, StackPane}
+import javafx.scene.layout.AnchorPane
 import javafx.stage.Stage
 
-class UIController(val stage: Stage) {
+class UIController(stage: Stage, system: ActorSystem, config: Config) {
   stage.setTitle("GrannyFrame")
   val frame = new AnchorPane()
   val scene = new Scene(frame, 800, 600)
@@ -15,6 +18,8 @@ class UIController(val stage: Stage) {
   stage.show()
 
   val viewer = new ImageViewer()
+
+  val slideshowActor = system.actorOf(Props(classOf[SlideshowActor], config, this), "SlideshowActor")
 
   def showSplash(msg: String): Unit ={
     val splash = new LoadingViewer(msg)
@@ -29,13 +34,15 @@ class UIController(val stage: Stage) {
     frame.getChildren.add(viewer)
   }
 
-  def showImage(imageEntity: ImageEntity): Unit = {
-    if(!frame.getChildren.get(0).isInstanceOf[ImageViewer]) initImage()
-    viewer.displayImage(imageEntity)
+  def showNewImage(imgs: List[ImageEntity]): Unit = {
+    slideshowActor! SlideshowActor.RescheduleSlideshow(imgs)
   }
 
-  def showSlideshow(images: Seq[ImageEntity]): Unit = {
-
+  def showImage(imageEntity: ImageEntity): Unit = {
+    Platform.runLater(() => {
+      if(!frame.getChildren.get(0).isInstanceOf[ImageViewer]) initImage()
+      viewer.displayImage(imageEntity)
+    })
   }
 
   private def setAnchorConst(node: Node): Unit ={

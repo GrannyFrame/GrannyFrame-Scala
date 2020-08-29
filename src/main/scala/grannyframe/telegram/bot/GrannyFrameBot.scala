@@ -1,28 +1,22 @@
 package telegram.bot
 
-import java.io.ObjectInputStream.GetField
 import java.time.Instant
 
 import akka.http.scaladsl.model.MediaTypes
-import akka.http.scaladsl.server.ContentNegotiator.Alternative.MediaType
 import cats.instances.future._
 import cats.syntax.functor._
 import com.bot4s.telegram.api.RequestHandler
 import com.bot4s.telegram.api.declarative.Commands
-import com.bot4s.telegram.clients.{FutureSttpClient, ScalajHttpClient}
+import com.bot4s.telegram.clients.{FutureSttpClient}
 import com.bot4s.telegram.future.{Polling, TelegramBot}
 import com.bot4s.telegram.methods.GetFile
-import com.bot4s.telegram.models.Message
 import com.softwaremill.sttp.SttpBackend
 import com.softwaremill.sttp.okhttp.OkHttpFutureBackend
-import com.typesafe.scalalogging.LazyLogging
 import grannyframe.persistence.{DBStore, ImageEntity}
-import okhttp3.OkHttpClient
 import org.bson.types.ObjectId
 import slogging.{LogLevel, LoggerConfig, PrintLoggerFactory}
-import sttp.client.akkahttp.AkkaHttpBackend
 
-import scala.util.{Success, Try}
+import scala.util.Try
 import scala.concurrent.{ExecutionContext, Future}
 
 class GrannyFrameBot(val token: String, store: DBStore)(override implicit val executionContext: ExecutionContext) extends TelegramBot
@@ -59,7 +53,11 @@ class GrannyFrameBot(val token: String, store: DBStore)(override implicit val ex
                 store.saveImage(ImageEntity(new ObjectId(), msg.from.get.firstName, msg.caption, bytes, MediaTypes.`image/jpeg`.value, Instant.ofEpochSecond(msg.date)))
               }
               .flatMap(_ => reply("Bild erhalten.").void)
-              .recoverWith { case _ => reply("Bildverarbeitung fehlgeschlagen").void }
+              .recoverWith {
+                case ex =>
+                  logger.error("Could not save Image:", ex)
+                  reply("Bildverarbeitung fehlgeschlagen").void
+              }
           case None =>
             logger.error("Could not retrieve filepath for id: {}", latestPhoto.fileId)
             reply("Fehler beim empfangen des Bildes").void
