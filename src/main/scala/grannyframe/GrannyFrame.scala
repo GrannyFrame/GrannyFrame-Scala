@@ -11,6 +11,8 @@ import javafx.application.{Application, Platform}
 import javafx.scene.Scene
 import javafx.stage.Stage
 
+import scala.util.Failure
+
 class GrannyFrame extends Application with LazyLogging {
   override def start(stage: Stage): Unit = {
     logger.info("Starting FrannyFrame...")
@@ -23,6 +25,12 @@ class GrannyFrame extends Application with LazyLogging {
     modules.bootstrap()
 
     modules.store.setUI(uiCtrl)
+
+    modules.store.showInitialImages().onComplete {
+      case Failure(ex) =>
+        logger.error("Could not show Initial Images from DB", ex)
+      case _ =>
+    }(modules.ex)
 
     stage.setOnCloseRequest(evt => {
       Platform.runLater(() => uiCtrl.showSplash("Bilderrahmen wird beendet!\nBitte habe noch etwas geduld!"))

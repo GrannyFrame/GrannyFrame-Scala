@@ -29,7 +29,7 @@ class DBStore(val config: Config)(implicit val ex: ExecutionContext) extends Laz
     // Save to db
     for {
       _ <- collection.insertOne(image).toFuture()
-      imgs <- getImages(config.frontend.imageCount)
+      imgs <- getImages()
     } yield {
       Platform.runLater { () =>
         ui.showNewImage(imgs)
@@ -37,12 +37,20 @@ class DBStore(val config: Config)(implicit val ex: ExecutionContext) extends Laz
     }
   }
 
-  def getImages(n: Int): Future[List[ImageEntity]] = {
+  def getImages(n: Int = config.frontend.imageCount): Future[List[ImageEntity]] = {
     collection.find[ImageEntity]()
       .sort(descending("createdAt"))
       .limit(n)
       .toFuture()
       .map(_.toList)
+  }
+
+  def showInitialImages():  Future[Unit] = {
+    getImages().map { imgs =>
+      Platform.runLater { () =>
+        ui.showNewImage(imgs)
+      }
+    }
   }
 
   def setUI(ui: UIController): Unit = {
