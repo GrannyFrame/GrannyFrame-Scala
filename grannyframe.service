@@ -3,7 +3,7 @@ Description=GranyFrame Service
 After=mongodb.service syslog.target network.target
 
 [Service]
-Environment=TELEGRAM_TOKEN=1231425613:AAFm6001hpUQgvA5vl-p832M5U8wS2d6fLo
+Environment=TELEGRAM_TOKEN=
 WorkingDirectory=/opt/GrannyFrameScala
 ExecStart=sbt "clean" "run"
 User=grannyframe
