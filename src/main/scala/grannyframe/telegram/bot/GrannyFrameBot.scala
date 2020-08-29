@@ -31,7 +31,7 @@ class GrannyFrameBot(val token: String, store: DBStore)(override implicit val ex
 
   onCommand("start") { implicit msg =>
     logger.debug(s"Recieved Message from: ${msg.from.get}")
-    reply("Welcome to the GrannyFrame Bot").void
+    reply("Willkommen beim GrannyFrame Bot").void
   }
 
   onMessage { implicit msg =>
@@ -52,7 +52,7 @@ class GrannyFrameBot(val token: String, store: DBStore)(override implicit val ex
                 logger.info("received {} bytes for fileId: {}", bytes.length, latestPhoto.fileId)
                 store.saveImage(ImageEntity(new ObjectId(), msg.from.get.firstName, msg.caption, bytes, MediaTypes.`image/jpeg`.value, Instant.ofEpochSecond(msg.date)))
               }
-              .flatMap(_ => reply("Bild erhalten.").void)
+              .flatMap(_ => reply("Danke für dein Bild.").void)
               .recoverWith {
                 case ex =>
                   logger.error("Could not save Image:", ex)
@@ -60,12 +60,12 @@ class GrannyFrameBot(val token: String, store: DBStore)(override implicit val ex
               }
           case None =>
             logger.error("Could not retrieve filepath for id: {}", latestPhoto.fileId)
-            reply("Fehler beim empfangen des Bildes").void
+            reply("Es gab einen Fehler beim Empfangen deines Bildes. ").void
         }
       }
 
     }.getOrElse {
-      reply("This bot can only receive Pictures").void
+      reply("Dieser Bot kann leider nur Bilder empfangen.").void
     }
   }
 
