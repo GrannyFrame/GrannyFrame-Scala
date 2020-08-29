@@ -43,7 +43,7 @@ class GrannyFrame extends Application with LazyLogging {
 
     uiCtrl.showSplash("""Der Bilderrahmen ist gestartet!
                               |Leider sind noch keine Bilder vorhanden.
-                              |Wartet bis ihr eier erstes Bild erhaltet...""".stripMargin)
+                              |Wartet bis ihr euer erstes Bild erhaltet...""".stripMargin)
 
     logger.info("Grannyframe started!")
   }

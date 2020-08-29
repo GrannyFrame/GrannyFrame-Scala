@@ -6,7 +6,7 @@
   </appender>
 
    <logger name="com.typesafe" level="INFO"></logger>
-   <logger name="grannyframe" level="DEBUG"></logger>
+   <logger name="grannyframe" level="INFO"></logger>
    <logger name="akka.http" level="INFO"></logger>
 
    <root level="INFO">
