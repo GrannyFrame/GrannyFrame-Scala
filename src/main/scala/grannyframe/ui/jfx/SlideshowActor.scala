@@ -8,17 +8,22 @@ import grannyframe.ui.jfx.SlideshowActor.{RescheduleSlideshow, TickSlideshow}
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration.DurationInt
 
+import scala.language.postfixOps
+
 class SlideshowActor(config: Config, uiCtrl: UIController) extends Actor with ActorLogging{
   implicit val ctx: ExecutionContext = this.context.system.dispatcher
 
-  var cancellable = new Cancellable {
+  private var cancellable = new Cancellable {
     override def cancel(): Boolean = true
     override def isCancelled: Boolean = true
   }
 
-  var imgs: List[ImageEntity] = List.empty
+  private var imgs: List[ImageEntity] = List.empty
 
   override def receive: Receive = {
+    case RescheduleSlideshow(Nil) =>
+      log.warning("Received an emply list of images.. No op...")
+
     case RescheduleSlideshow(imgs) =>
       log.info("Received new Image List with {} elements", imgs.length)
       cancellable.cancel()
