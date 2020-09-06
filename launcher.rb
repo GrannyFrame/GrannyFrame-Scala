@@ -1,7 +1,12 @@
 #!/bin/ruby
 
-require 'json'
-require 'httparty'
+require 'bundler/inline'
+
+gemfile do
+  source 'https://rubygems.org'
+  gem 'json'
+  gem 'httparty'
+end
 
 ENV_KEY = "TELEGRAM_TOKEN"
 PROG_DIR = "GrannyFrame-Scala"

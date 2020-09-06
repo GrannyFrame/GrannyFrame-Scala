@@ -24,26 +24,14 @@ then
     exit
 fi
 
-if ! gem query -i -n httparty > /dev/null 2>&1;
-then
-  echo "Installing HTTParty Gem";
-  gem install httparty;
+if : >/dev/tcp/8.8.8.8/53; then
+  echo 'Internet available.'
+  echo "Downloading newest launcher..."
+  wget https://raw.githubusercontent.com/GrannyFrame/GrannyFrame-Scala/master/launcher.rb -O launcher.rb
+
+  xterm -e ruby ./launcher.rb
 else
-  echo "HTTParty Gem already installed"
+  echo 'No Internet available!'
+  echo 'Exiting...'
 fi
 
-if ! gem query -i -n json > /dev/null 2>&1;
-then
-  echo "Installing JSON Gem";
-  gem install json
-else
-  echo "JSON Gem already installed"
-fi
-
-if [ ! -f ./launcher.rb ]; then
-    echo "Launcher not found!"
-    echo "Downloading..."
-    wget https://raw.githubusercontent.com/GrannyFrame/GrannyFrame-Scala/master/launcher.rb
-fi
-
-xterm -e ruby ./launcher.rb
