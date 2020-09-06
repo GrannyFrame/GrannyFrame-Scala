@@ -3,7 +3,7 @@
 require 'json'
 require 'httparty'
 
-ENV['TELEGRAM_TOKEN'] = ""
+ENV_KEY = "TELEGRAM_TOKEN"
 PROG_DIR = "GrannyFrame-Scala"
 TEMP_FILE = "grannyframe_latest.tgz"
 VERSION_FILE = "version.txt"
@@ -12,6 +12,15 @@ latest_vers = nil
 tarball_url = nil
 
 puts "Starting GrannyFrame Launcher..."
+
+puts "Checking for Telegram Token..."
+if ENV.has_key? ENV_KEY
+  puts "Token is present: #{ENV[ENV_KEY]}"
+else
+  STDERR.puts "No Telegram Token has been supplied! Cannot start..."
+  sleep 10
+  exit
+end
 
 if File.file? VERSION_FILE
   curr_vers = File.read(VERSION_FILE)
