@@ -1,5 +1,13 @@
 #!/bin/bash
 
+if ! command -v rbenv &> /dev/null
+then
+    echo "rbenv could not be found!"
+    echo "Please install rbenv first."
+    echo "Exiting..."
+    exit
+fi
+
 if ! command -v ruby &> /dev/null
 then
     echo "Ruby could not be found!"

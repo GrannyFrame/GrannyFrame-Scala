@@ -2,7 +2,6 @@
 
 require 'bundler/inline'
 
-ENV['BUNDLE_PATH'] = "./gems"
 ENV_KEY = "TELEGRAM_TOKEN"
 PROG_DIR = "GrannyFrame-Scala"
 TEMP_FILE = "grannyframe_latest.tgz"
