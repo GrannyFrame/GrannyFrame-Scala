@@ -8,28 +8,18 @@ then
     exit
 fi
 
-if ! command -v ruby &> /dev/null
-then
-    echo "Ruby could not be found!"
-    echo "Please install ruby first."
-    echo "Exiting..."
-    exit
-fi
-
-if ! command -v gem &> /dev/null
-then
-    echo "Ruby Gems could not be found!"
-    echo "Please install ruby Gems first."
-    echo "Exiting..."
-    exit
-fi
-
 if ! command -v xterm &> /dev/null
 then
     echo "xterm could not be found!"
     echo "Please install xterm first."
     echo "Exiting..."
     exit
+fi
+
+if [ ! -f .env ]
+then
+  echo "Found .env File! Using it..."
+  export $(cat .env | xargs)
 fi
 
 if : >/dev/tcp/8.8.8.8/53; then
