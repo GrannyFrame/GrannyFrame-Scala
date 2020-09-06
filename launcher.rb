@@ -1,6 +1,8 @@
 #!/bin/ruby
 
 require 'bundler/inline'
+require 'bundler'
+Bundler.configure
 
 ENV_KEY = "TELEGRAM_TOKEN"
 PROG_DIR = "GrannyFrame-Scala"
