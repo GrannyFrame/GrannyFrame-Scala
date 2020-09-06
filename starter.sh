@@ -35,6 +35,9 @@ fi
 if : >/dev/tcp/8.8.8.8/53; then
   echo 'Internet available.'
 
+  rbenv install -s 2.7.1
+  rbenv local 2.7.1
+
   if ! gem query -i -n bundler > /dev/null 2>&1;
   then
     echo "Installing bundler Gem";
