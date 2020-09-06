@@ -16,7 +16,7 @@ then
     exit
 fi
 
-if [ ! -f .env ]
+if [ -f .env ]
 then
   echo "Found .env File! Using it..."
   export $(cat .env | xargs)
@@ -39,7 +39,7 @@ if : >/dev/tcp/8.8.8.8/53; then
   echo "Downloading newest launcher..."
   wget https://raw.githubusercontent.com/GrannyFrame/GrannyFrame-Scala/master/launcher.rb -O launcher.rb
 
-  xterm -e ruby ./launcher.rb
+  ruby ./launcher.rb
 else
   echo 'No Internet available!'
   echo 'Exiting...'

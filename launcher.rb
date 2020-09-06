@@ -23,7 +23,6 @@ if ENV.has_key? ENV_KEY
   puts "Token is present: #{ENV[ENV_KEY]}"
 else
   STDERR.puts "No Telegram Token has been supplied! Cannot start..."
-  sleep 10
   exit
 end
 
