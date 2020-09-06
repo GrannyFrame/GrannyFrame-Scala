@@ -2,12 +2,7 @@
 
 require 'bundler/inline'
 
-gemfile do
-  source 'https://rubygems.org'
-  gem 'json'
-  gem 'httparty'
-end
-
+ENV['BUNDLE_PATH'] = "./gems"
 ENV_KEY = "TELEGRAM_TOKEN"
 PROG_DIR = "GrannyFrame-Scala"
 TEMP_FILE = "grannyframe_latest.tgz"
@@ -15,6 +10,12 @@ VERSION_FILE = "version.txt"
 curr_vers = nil
 latest_vers = nil
 tarball_url = nil
+
+gemfile do
+  source 'https://rubygems.org'
+  gem 'json'
+  gem 'httparty'
+end
 
 puts "Starting GrannyFrame Launcher..."
 
