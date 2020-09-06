@@ -26,6 +26,15 @@ fi
 
 if : >/dev/tcp/8.8.8.8/53; then
   echo 'Internet available.'
+
+  if ! gem query -i -n bundler > /dev/null 2>&1;
+  then
+    echo "Installing bundler Gem";
+    gem install bundler
+  else
+    echo "Bundler Gem already installed"
+  fi
+
   echo "Downloading newest launcher..."
   wget https://raw.githubusercontent.com/GrannyFrame/GrannyFrame-Scala/master/launcher.rb -O launcher.rb
 
