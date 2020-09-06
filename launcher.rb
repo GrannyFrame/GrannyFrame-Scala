@@ -1,8 +1,8 @@
 #!/bin/ruby
 
-require 'bundler/inline'
-require 'bundler'
-Bundler.configure
+# require 'bundler/inline'
+require 'json'
+require 'httparty'
 
 ENV_KEY = "TELEGRAM_TOKEN"
 PROG_DIR = "GrannyFrame-Scala"
@@ -12,11 +12,11 @@ curr_vers = nil
 latest_vers = nil
 tarball_url = nil
 
-gemfile do
-  source 'https://rubygems.org'
-  gem 'json'
-  gem 'httparty'
-end
+# gemfile do
+#   source 'https://rubygems.org'
+#   gem 'json'
+#   gem 'httparty'
+# end
 
 puts "Starting GrannyFrame Launcher..."
 
