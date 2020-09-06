@@ -1,4 +1,5 @@
 #!/bin/bash
+cd $(dirname $0)
 
 if ! command -v rbenv &> /dev/null
 then
